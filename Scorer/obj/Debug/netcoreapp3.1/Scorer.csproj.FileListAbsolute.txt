@@ -1,0 +1,13 @@
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\bin\Debug\netcoreapp3.1\Scorer.deps.json
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\bin\Debug\netcoreapp3.1\Scorer.dll
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\bin\Debug\netcoreapp3.1\Scorer.pdb
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\obj\Debug\netcoreapp3.1\Scorer.csprojAssemblyReference.cache
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\obj\Debug\netcoreapp3.1\Scorer.AssemblyInfoInputs.cache
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\obj\Debug\netcoreapp3.1\Scorer.AssemblyInfo.cs
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\obj\Debug\netcoreapp3.1\Scorer.csproj.CoreCompileInputs.cache
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\obj\Debug\netcoreapp3.1\Scorer.dll
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\obj\Debug\netcoreapp3.1\Scorer.pdb
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\bin\Debug\netcoreapp3.1\Scorer.exe
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\bin\Debug\netcoreapp3.1\Scorer.runtimeconfig.json
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\bin\Debug\netcoreapp3.1\Scorer.runtimeconfig.dev.json
+C:\Users\Kyle\Downloads\csharp\csharp\Scorer\Scorer\obj\Debug\netcoreapp3.1\Scorer.genruntimeconfig.cache
