@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace Scorer
+namespace Application
 {
-    class MainC
+    class Entrypoint
     {
         public static void Main(string[] args)
         {
-            Console.Write(DigitalRoot(16));
+            Console.Write("Hello world");
         }
     }
 }
