@@ -9,7 +9,12 @@ namespace Application
     {
         public static void Main(string[] args)
         {
-            Console.Write("Hello world");
+            //TODO: Unit tests,
+            //TODO: WS and poll implementations for model management
+            //TODO: ServiceProvider and HttpClient implementations for commander
+            //TODO: get it all running on .net 5.0
+            //TODO: get on github with nuget package builds
+            Console.Write("");
         }
     }
 }
