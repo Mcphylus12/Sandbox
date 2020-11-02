@@ -8,7 +8,7 @@ namespace Application
     class TestComponent
     {
         private ISubscriptionManager subscriptionManager;
-        private ISubscription<TestModel> subscription;
+        private ISubscription subscription;
 
         public Action<TestModel> Render;
 

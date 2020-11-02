@@ -15,11 +15,21 @@ namespace ModelManagement
 
         internal void RemoveInterest<T>(Subscription<T> subscription)
         {
+            if (subscription?.currentKey is null)
+            {
+                return;
+            }
+
             this.subscriptionIndex[typeof(T)][subscription.currentKey].Remove(subscription);
         }
 
         internal void AddInterest<T>(Subscription<T> subscription, object newKey)
         {
+            if (subscription == null)
+            {
+                return;
+            }
+
             InitSubscriptionIndex<T>(newKey);
             this.subscriptionIndex[typeof(T)][newKey].Add(subscription);
         }

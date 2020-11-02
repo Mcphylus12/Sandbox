@@ -9,8 +9,9 @@ namespace Application
     {
         public static void Main(string[] args)
         {
-            //TODO: Work,
+            //TODO (DONE): Work,
             //TODO: Unit tests,
+            //TODO: Triple slash comments
             //TODO: WS and poll implementations for model management
             //TODO: ServiceProvider and HttpClient implementations for commander
             //TODO: get it all running on .net 5.0
@@ -30,6 +31,8 @@ namespace Application
             component.Render = ComponentRendered;
             component.Init();
 
+            service.UpdateData();
+            service.UpdateData();
             service.UpdateData();
 
             component.Destroy();

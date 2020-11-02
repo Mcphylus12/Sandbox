@@ -2,8 +2,10 @@
 
 namespace ModelManagement
 {
-    public interface ISubscription : IDisposable
+    public interface ISubscription
     {
         void UpdateKey(object key);
+
+        void Dispose();
     }
 }

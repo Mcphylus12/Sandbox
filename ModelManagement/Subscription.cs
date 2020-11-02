@@ -26,7 +26,7 @@ namespace ModelManagement
 
         public void UpdateKey(object newKey)
         {
-            this.manager.InterestUpdated(newKey, this);
+            this.manager.InterestUpdated(this, newKey);
             this.currentKey = newKey;
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ModelManagement
 {
@@ -29,6 +28,7 @@ namespace ModelManagement
         internal void RemoveSubscription<T>(Subscription<T> subscription)
         {
             interestStore.RemoveInterest(subscription);
+            InterestUpdated<T>(null, null);
         }
 
         public void NotifyDataUpdated<T>(object key, T newData)
@@ -39,7 +39,7 @@ namespace ModelManagement
             }
         }
 
-        internal void InterestUpdated<T>(object newKey, Subscription<T> subscription)
+        internal void InterestUpdated<T>(Subscription<T> subscription, object newKey)
         {
             interestStore.RemoveInterest(subscription);
             interestStore.AddInterest(subscription, newKey);
