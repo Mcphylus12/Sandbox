@@ -5,4 +5,8 @@
         <OutputType>Exe</OutputType>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ModelManagement\ModelManagement.csproj" />
+    </ItemGroup>
+
 </Project>

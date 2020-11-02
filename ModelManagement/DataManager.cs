@@ -1,78 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace ModelManagement
 {
-    internal class DataManager
+    public class DataManager : IDataManager, ISubscriptionManager
     {
-        private Dictionary<Type, List<IRequestLock>> _locks;
-        private Dictionary<Type, List<ISubscription>> _subscriptions;
-        private HashSet<Type> _typeCache;
+        private List<IDataUpdater> updaters;
+        private readonly InterestStore interestStore;
 
         public DataManager()
         {
-            this._locks = new Dictionary<Type, List<IRequestLock>>();
-            this._subscriptions = new Dictionary<Type, List<ISubscription>>();
-            this._typeCache = new HashSet<Type>();
+            updaters = new List<IDataUpdater>();
+            interestStore = new InterestStore();
         }
 
-        internal void AddLock<T>(RequestLock<T> newLock)
+        public void RegisterDataUpdater(IDataUpdater updater)
         {
-            if (!this._locks.ContainsKey(typeof(T)))
-            {
-                this._locks.Add(typeof(T), new List<IRequestLock>());
-            }
-
-            this._locks[typeof(T)].Add(newLock);
+            this.updaters.Add(updater);
         }
 
-        internal void ReleaseLock<T>(RequestLock<T> requestLock)
+        public ISubscription Subscribe<T>(Action<T> onDataUpdated)
         {
-            this._locks[typeof(T)].Remove(requestLock); // O(n)
-        }
-
-        internal void AddSubscription<T>(Subscription<T> newSubscription)
-        {
-            Type type = typeof(T);
-
-            if (!this._subscriptions.ContainsKey(type))
-            {
-                this._subscriptions.Add(type, new List<ISubscription>());
-            }
-
-            this._subscriptions[type].Add(newSubscription);
-            this._typeCache.Add(type);
+            Subscription<T> subscription = new Subscription<T>(onDataUpdated, this);
+            return subscription;
         }
 
         internal void RemoveSubscription<T>(Subscription<T> subscription)
         {
-            Type type = typeof(T);
-            this._subscriptions[type].Remove(subscription); // O(n)
-            this._typeCache.Add(type);
+            interestStore.RemoveInterest(subscription);
         }
 
-        public IEnumerable<object> GetSubscriptionKeys<T>()
+        public void NotifyDataUpdated<T>(object key, T newData)
         {
-            this._typeCache.Remove(typeof(T));
-            return this._subscriptions[typeof(T)].Select(sub => sub.GetKey());
-        }
-        
-        public IEnumerable<KeyValuePair<Type, object>> EnumerateSubscriptions()
-        {
-            this._typeCache.Clear();
-            return this._subscriptions.SelectMany(kv => kv.Value, (kv, sub) => new KeyValuePair<Type, object>(kv.Key, sub.GetKey()));
+            foreach (Subscription<T> sub in interestStore.GetSubscriptions<T>(key))
+            {
+                sub.UpdateData(newData);
+            }
         }
 
-        public bool HaveInterestsChanged<T>()
+        internal void InterestUpdated<T>(object newKey, Subscription<T> subscription)
         {
-            return this._typeCache.Contains(typeof(T));
-        }
+            interestStore.RemoveInterest(subscription);
+            interestStore.AddInterest(subscription, newKey);
 
-        public bool IsLocked<T>()
-        {
-            return this._locks.ContainsKey(typeof(T));
+            foreach (var updater in updaters)
+            {
+                updater.OnInterestsChanged<T>(interestStore.GetInterestedKeys<T>());
+            }
         }
     }
 }

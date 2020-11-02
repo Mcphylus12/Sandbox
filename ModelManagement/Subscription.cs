@@ -2,31 +2,32 @@
 
 namespace ModelManagement
 {
-    public class Subscription<T> : IDisposable, ISubscription
+    internal class Subscription<T> : ISubscription
     {
-        private readonly DataManager _manager;
-        private object _key;
+        private Action<T> onDataUpdated;
+        private readonly DataManager manager;
+        internal object currentKey = null;
 
-        public event Action<T> OnUpdate;
-
-        internal Subscription(DataManager manager)
+        public Subscription(Action<T> onDataUpdated, DataManager manager)
         {
-            this._manager = manager;
+            this.onDataUpdated = onDataUpdated;
+            this.manager = manager;
         }
 
-        public void UpdateKey(object key)
+        public void UpdateData(T newData)
         {
-            this._key = key;
+            onDataUpdated(newData);
         }
 
         public void Dispose()
         {
-            this._manager.RemoveSubscription(this);
+            this.manager.RemoveSubscription(this);
         }
 
-        public object GetKey()
+        public void UpdateKey(object newKey)
         {
-            return this._key;
+            this.manager.InterestUpdated(newKey, this);
+            this.currentKey = newKey;
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace ModelManagement
+﻿using System;
+
+namespace ModelManagement
 {
-    internal interface ISubscription
+    public interface ISubscription : IDisposable
     {
-        object GetKey();
+        void UpdateKey(object key);
     }
 }
