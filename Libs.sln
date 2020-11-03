@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelManagement", "ModelMan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commander", "Commander\Commander.csproj", "{07DE3084-A881-45A1-93F6-F12B05A8BFC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelManagement.Tests", "ModelManagement.Tests\ModelManagement.Tests.csproj", "{C5AED9FB-5119-49AC-9CCA-153E22CB11FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelManagement.Tests", "ModelManagement.Tests\ModelManagement.Tests.csproj", "{C5AED9FB-5119-49AC-9CCA-153E22CB11FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "ClassLibrary1\Repository.csproj", "{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C5AED9FB-5119-49AC-9CCA-153E22CB11FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5AED9FB-5119-49AC-9CCA-153E22CB11FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5AED9FB-5119-49AC-9CCA-153E22CB11FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
