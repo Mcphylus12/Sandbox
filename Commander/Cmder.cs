@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+#nullable disable
 namespace Commander
 {
     public class Cmder : ICmder, ICommandResolverStore

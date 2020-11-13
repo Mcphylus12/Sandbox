@@ -10,9 +10,9 @@ namespace Application
     {
         private ISubscriptionManager subscriptionManager;
         private readonly ICmder cmder;
-        private ISubscription subscription;
+        private ISubscription? subscription;
 
-        public Action<TestModel> Render;
+        public Action<TestModel>? Render;
 
         public TestComponent(TestApplicationContainer container)
         {
@@ -22,7 +22,7 @@ namespace Application
 
         internal void Init()
         {
-            this.subscription = subscriptionManager.Subscribe<TestModel>(model => Render(model));
+            this.subscription = subscriptionManager.Subscribe<TestModel>(model => Render?.Invoke(model));
             this.subscription.UpdateKey("testKey");
 
             Console.WriteLine($" command result: {this.cmder.Execute(new TestParam()).Result}");
@@ -30,7 +30,7 @@ namespace Application
 
         internal void Destroy()
         {
-            this.subscription.Dispose();
+            this.subscription?.Dispose();
         }
     }
 }
