@@ -8,9 +8,9 @@ namespace Application
         private object[] newKeys;
         private int modelVersion = 0;
 
-        public TestService(TestApplicationStartup startup)
+        public TestService(TestApplicationContainer container)
         {
-            this.manager = startup.DataManager;
+            this.manager = container.DataManager;
         }
 
         internal void Init()

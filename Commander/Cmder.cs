@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Commander
 {
-    public class Cmder
+    public class Cmder : ICmder, ICommandResolverStore
     {
         private Dictionary<Type, object> _cache;
         private Dictionary<Type, ICommandResolver> _resolvers;

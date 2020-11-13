@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commander", "Commander\Comm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelManagement.Tests", "ModelManagement.Tests\ModelManagement.Tests.csproj", "{C5AED9FB-5119-49AC-9CCA-153E22CB11FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "ClassLibrary1\Repository.csproj", "{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "ClassLibrary1\Repository.csproj", "{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermissionsModels", "PermissionsModels\PermissionsModels.csproj", "{2ACA0E52-FE96-4BB4-B303-AD4FCB21DEB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC4DA388-0A4D-4B8B-8793-8128E66B0DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ACA0E52-FE96-4BB4-B303-AD4FCB21DEB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ACA0E52-FE96-4BB4-B303-AD4FCB21DEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ACA0E52-FE96-4BB4-B303-AD4FCB21DEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ACA0E52-FE96-4BB4-B303-AD4FCB21DEB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

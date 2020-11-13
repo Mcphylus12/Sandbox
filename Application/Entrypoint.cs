@@ -9,25 +9,19 @@ namespace Application
     {
         public static void Main(string[] args)
         {
-            //TODO (DONE): Work,
-            //TODO: Unit tests,
-            //TODO: Triple slash comments
-            //TODO: WS and poll implementations for model management
-            //TODO: ServiceProvider and HttpClient implementations for commander
-            //TODO: get it all running on .net 5.0
-            //TODO: get on github with nuget package builds
-
+            // repository + Specification pattern
             RunIntegrationTests();
         }
 
         private static void RunIntegrationTests()
         {
-            var startup = new TestApplicationStartup();
+            var container = new TestApplicationContainer();
+            new TestStartUp(container).Start();
 
-            var service = new TestService(startup);
+            var service = new TestService(container);
             service.Init();
 
-            var component = new TestComponent(startup);
+            var component = new TestComponent(container);
             component.Render = ComponentRendered;
             component.Init();
 

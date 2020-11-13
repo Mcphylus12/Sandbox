@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace ModelManagement.Tests
 {
@@ -19,7 +20,7 @@ namespace ModelManagement.Tests
         public void InterestsUpdated_When_SubscriptionGivenKey()
         {
             const string key = "test";
-            ISubscription sub = CreateSub(key);
+            ISubscription sub = CreateSub(key, _ => { });
 
             AssertLatestKeys(key);
         }
@@ -32,7 +33,7 @@ namespace ModelManagement.Tests
         [TestMethod]
         public void InterestRemoved_When_SubscriptionDisposed()
         {
-            ISubscription sub = CreateSub("test");
+            ISubscription sub = CreateSub("test", _ => { });
 
             sub.Dispose();
             AssertLatestKeys();
@@ -41,7 +42,7 @@ namespace ModelManagement.Tests
         [TestMethod]
         public void InterestChanges_When_SubscriptionUpdates()
         {
-            ISubscription sub = CreateSub("test");
+            ISubscription sub = CreateSub("test", _ => { });
             AssertLatestKeys("test");
 
             sub.UpdateKey("newTest");
@@ -51,8 +52,8 @@ namespace ModelManagement.Tests
         [TestMethod]
         public void WhileAtLeast1SubIsActiveTheInterestIsRegistered()
         {
-            ISubscription sub = CreateSub("test");
-            ISubscription sub2 = CreateSub("test");
+            ISubscription sub = CreateSub("test", _ => { });
+            ISubscription sub2 = CreateSub("test", _ => { });
 
             sub.Dispose();
             AssertLatestKeys("test");
@@ -61,11 +62,31 @@ namespace ModelManagement.Tests
             AssertLatestKeys();
         }
 
-        //Type RelatedTests
-
-        private ISubscription CreateSub(string key)
+        [TestMethod]
+        public void UpdateOnlyCorrectSubscription()
         {
-            var sub = this.sut.Subscribe<MockModel>(_ => { });
+            bool goodSubUpdate = false;
+            bool badTypeSubUpdate = false;
+            bool badKeySubUpdate = false;
+            var goodSub = CreateSub<MockModel>("goodKey", _ => goodSubUpdate = true);
+            var badTypeSub = CreateSub<OtherMockModel>("goodKey", _ => badTypeSubUpdate = true);
+            var badKeySub = CreateSub<MockModel>("badKey", _ => badKeySubUpdate = true);
+
+            this.sut.NotifyDataUpdated("goodKey", new MockModel());
+
+            Assert.IsTrue(goodSubUpdate);
+            Assert.IsFalse(badTypeSubUpdate);
+            Assert.IsFalse(badKeySubUpdate);
+        }
+
+        private ISubscription CreateSub(string key, Action<MockModel> action)
+        {
+            return CreateSub<MockModel>(key, action);
+        }
+
+        private ISubscription CreateSub<T>(string key, Action<T> action)
+        {
+            var sub = this.sut.Subscribe(action);
             sub.UpdateKey(key);
             return sub;
         }
