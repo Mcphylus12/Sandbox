@@ -4,7 +4,7 @@ namespace PermissionsModels
 {
     public interface IFacade
     {
-        Task<bool> IsInGroup(IGroup group, IObject thing);
+        Task<bool> IsInGroup(IGroup group, IObject member);
         Task<bool> CanDoOperation(IObject actor, IObject target, IOperation operation);
 
         Task AddToGroup(IGroup group, params IObject[] members);
