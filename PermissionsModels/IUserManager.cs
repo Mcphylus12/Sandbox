@@ -2,7 +2,7 @@
 
 namespace PermissionsModels
 {
-    public interface IFacade
+    public interface IUserManager
     {
         Task<bool> IsInGroup(IGroup group, IObject member);
         Task<bool> CanDoOperation(IObject actor, IObject target, IOperation operation);
