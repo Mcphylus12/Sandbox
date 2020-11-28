@@ -1,6 +1,6 @@
 ﻿namespace PermissionsModels
 {
-    public interface IOperation : IHasId
+    public interface IOperation
     {
     }
 }
