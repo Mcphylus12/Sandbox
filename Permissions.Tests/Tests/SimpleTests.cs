@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Permissions.Tests.Helpers;
 using PermissionsModels;
-using System;
 using System.Threading.Tasks;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
@@ -18,11 +17,23 @@ namespace Permissions.Tests.Tests
             IsFalse(canDo);
         }
 
+        [TestMethod]
+        public async Task CanDoWhenAssigned()
+        {
+            Manager.Assign(User, StartOperation, Service);
+            await Manager.Save();
+
+            var canDo = await Manager.CanDoOperation(User, StartOperation, Service);
+
+            IsTrue(canDo);
+        }
+
 
         [TestMethod]
         public async Task CantDoWhenAssignedOtherOperation()
         {
-            await AssignOperation(StopOperation);
+            Manager.Assign(User, StopOperation, Service);
+            await Manager.Save();
 
             var canDo = await Manager.CanDoOperation(User, StartOperation, Service);
 
@@ -33,7 +44,8 @@ namespace Permissions.Tests.Tests
         public async Task CantDoWhenUnsupportedOperation()
         {
             Service.ClearSupportedOperations();
-            await AssignOperation(StartOperation);
+            Manager.Assign(User, StartOperation, Service);
+            await Manager.Save();
 
             var canDo = await Manager.CanDoOperation(User, StartOperation, Service);
 
@@ -43,7 +55,10 @@ namespace Permissions.Tests.Tests
         [TestMethod]
         public async Task CanDoWhenAssignRoleContainsOperation()
         {
-            await AssignOperation(StartOperation, StopOperation);
+            var editOperation = new Operation("Edit");
+            Manager.AddChild(editOperation, StartOperation, StopOperation);
+            Manager.Assign(User, editOperation, Service);
+            await Manager.Save();
 
             var canDo = await Manager.CanDoOperation(User, StartOperation, Service);
 
@@ -54,9 +69,7 @@ namespace Permissions.Tests.Tests
         public async Task CanDoWhenInGroupWithRole()
         {
             Manager.AddChild(ActorGroup, User);
-            var role = NewRole();
-            role.AssignOperation(StartOperation);
-            Manager.AssignRole(ActorGroup, role, Service);
+            Manager.Assign(ActorGroup, StartOperation, Service);
             await Manager.Save();
 
             var canDo = await Manager.CanDoOperation(User, StartOperation, Service);
@@ -67,11 +80,12 @@ namespace Permissions.Tests.Tests
         [TestMethod]
         public async Task GroupsTest()
         {
+            var editOperation = new Operation("Edit");
+            Manager.AddChild(editOperation, StartOperation);
             Manager.AddChild(ActorGroup, User);
             Manager.AddChild(TargetGroup, Service);
-            TestRole role = NewRole();
-            role.AssignOperation(StartOperation);
-            Manager.AssignRole(ActorGroup, role, TargetGroup);
+            
+            Manager.Assign(ActorGroup, editOperation, TargetGroup);
             await Manager.Save();
 
             var canDo = await Manager.CanDoOperation(User, StartOperation, Service);
@@ -79,17 +93,39 @@ namespace Permissions.Tests.Tests
             IsTrue(canDo);
         }
 
-        private async Task AssignOperation(params Operation[] operations)
+        [TestMethod]
+        public async Task MultipleOperationGroupLevelTest()
         {
-            var role = NewRole();
-            operations.ForEach(o => role.AssignOperation(o));
-            Manager.AssignRole(User, role, Service);
+            var editOperation = new Operation("Edit");
+            var adminOperation = new Operation("Admin");
+            Manager.AddChild(editOperation, StartOperation);
+            Manager.AddChild(adminOperation, editOperation);
+
+            Manager.Assign(User, adminOperation, Service);
             await Manager.Save();
+
+            var canDo = await Manager.CanDoOperation(User, StartOperation, Service);
+
+            IsTrue(canDo);
         }
 
-        private static TestRole NewRole()
+        [TestMethod]
+        public async Task MultipleObjectGroupLevelTest()
         {
-            return new TestRole(Guid.NewGuid());
+            var TopActorGroup = new Group();
+            var TopTargetGroup = new Group();
+            Manager.AddChild(TopTargetGroup, TargetGroup);
+            Manager.AddChild(TopActorGroup, ActorGroup);
+
+            Manager.AddChild(TargetGroup, Service);
+            Manager.AddChild(ActorGroup, User);
+
+            Manager.Assign(TopActorGroup, StartOperation, TopTargetGroup);
+            await Manager.Save();
+
+            var canDo = await Manager.CanDoOperation(User, StartOperation, Service);
+
+            IsTrue(canDo);
         }
     }
 }

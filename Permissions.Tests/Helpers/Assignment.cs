@@ -7,13 +7,13 @@ namespace Permissions.Tests
     internal struct Assignment
     {
         public IObject Holder;
-        public IRole Role;
+        public Operation Operation;
         public IObject Target;
 
-        public Assignment(IObject holder, IRole role, IObject target)
+        public Assignment(IObject holder, Operation operation, IObject target)
         {
             Holder = holder;
-            Role = role;
+            Operation = operation;
             Target = target;
         }
 
@@ -21,30 +21,30 @@ namespace Permissions.Tests
         {
             return obj is Assignment other &&
                    EqualityComparer<IObject>.Default.Equals(Holder, other.Holder) &&
-                   EqualityComparer<IRole>.Default.Equals(Role, other.Role) &&
+                   EqualityComparer<Operation>.Default.Equals(Operation, other.Operation) &&
                    EqualityComparer<IObject>.Default.Equals(Target, other.Target);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Holder, Role, Target);
+            return HashCode.Combine(Holder, Operation, Target);
         }
 
-        public void Deconstruct(out IObject holder, out IRole role, out IObject target)
+        public void Deconstruct(out IObject holder, out Operation operation, out IObject target)
         {
             holder = Holder;
-            role = Role;
+            operation = Operation;
             target = Target;
         }
 
-        public static implicit operator (IObject, IRole, IObject)(Assignment value)
+        public static implicit operator (IObject, Operation, IObject)(Assignment value)
         {
-            return (value.Holder, value.Role, value.Target);
+            return (value.Holder, value.Operation, value.Target);
         }
 
-        public static implicit operator Assignment((IObject holder, IRole role, IObject target) value)
+        public static implicit operator Assignment((IObject holder, Operation operation, IObject target) value)
         {
-            return new Assignment(value.holder, value.role, value.target);
+            return new Assignment(value.holder, value.operation, value.target);
         }
     }
 }

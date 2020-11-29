@@ -1,15 +1,14 @@
-﻿using PermissionsModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Permissions.Tests
 {
-    internal struct Membership
+    internal struct Membership<T>
     {
-        public IObject Parent;
-        public IObject Child;
+        public T Parent;
+        public T Child;
 
-        public Membership(IObject parent, IObject child)
+        public Membership(T parent, T child)
         {
             Parent = parent;
             Child = child;
@@ -17,9 +16,9 @@ namespace Permissions.Tests
 
         public override bool Equals(object obj)
         {
-            return obj is Membership other &&
-                   EqualityComparer<IObject>.Default.Equals(Parent, other.Parent) &&
-                   EqualityComparer<IObject>.Default.Equals(Child, other.Child);
+            return obj is Membership<T> other &&
+                   EqualityComparer<T>.Default.Equals(Parent, other.Parent) &&
+                   EqualityComparer<T>.Default.Equals(Child, other.Child);
         }
 
         public override int GetHashCode()
@@ -27,20 +26,20 @@ namespace Permissions.Tests
             return HashCode.Combine(Parent, Child);
         }
 
-        public void Deconstruct(out IObject parent, out IObject child)
+        public void Deconstruct(out T parent, out T child)
         {
             parent = Parent;
             child = Child;
         }
 
-        public static implicit operator (IObject Parent, IObject Child)(Membership value)
+        public static implicit operator (T Parent, T Child)(Membership<T> value)
         {
             return (value.Parent, value.Child);
         }
 
-        public static implicit operator Membership((IObject Parent, IObject Child) value)
+        public static implicit operator Membership<T>((T Parent, T Child) value)
         {
-            return new Membership(value.Parent, value.Child);
+            return new Membership<T>(value.Parent, value.Child);
         }
     }
 }
