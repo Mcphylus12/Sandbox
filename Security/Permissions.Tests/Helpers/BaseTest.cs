@@ -5,7 +5,7 @@ namespace Permissions.Tests
 {
     public abstract class BaseTest
     {
-        protected readonly IUserManager Manager;
+        protected readonly IObjectManager Manager;
         protected readonly User User;
         protected readonly Service Service;
         protected readonly Group ActorGroup;

@@ -2,6 +2,7 @@
 
 namespace Application
 {
+#nullable disable
     internal class TestCommandResolver : ICommandResolver
     {
         public ICommand<TCommandParams, TResult> ResolveCommandImplementation<TCommandParams, TResult>() 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Permissions.Tests
 {
-    public class InMemoryManager : IUserManager
+    public class InMemoryManager : IObjectManager
     {
         private readonly HashSet<Assignment> _assignments;
         private readonly HashSet<Membership<IObject>> _memberships;

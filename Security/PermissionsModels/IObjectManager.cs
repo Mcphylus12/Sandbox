@@ -2,7 +2,7 @@
 
 namespace PermissionsModels
 {
-    public interface IUserManager
+    public interface IObjectManager
     {
         Task<bool> CanDoOperation(IObject actor, Operation operation, IObject target);
 
