@@ -23,5 +23,8 @@ jobs:
       run: dotnet build -c Release --no-restore
     - name: Test
       run: dotnet test --verbosity normal
-      
+    - name: Publish NuGet
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      with:
+          PROJECT_FILE_PATH: Commander\Commander.csproj
     
