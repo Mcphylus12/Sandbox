@@ -17,6 +17,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.101
-    - name: Test
-      run: dotnet test --verbosity normal
+    - name: Build
+      run: dotnet build -c release
+    - name: Publish Commander
+      run: dotnet nuget push "Commander/bin/Release/Commander.1.0.0.nupkg" --source "github"
+    
     
