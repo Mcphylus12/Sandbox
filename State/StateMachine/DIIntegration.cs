@@ -21,9 +21,13 @@ namespace StateMachine
         {
         }
 
-        public void AddStateMachine<TState, TTransition, TOperationContextData>(StateMachineBuilder<TState, TTransition, TOperationContextData> stateMachineBuilder)
+        public void AddStateMachine<TState, TTransition>(StateMachineBuilder<TState, TTransition, ServiceContext> stateMachineBuilder)
         {
             throw new NotImplementedException();
         }
+    }
+
+    public class ServiceContext
+    {
     }
 }

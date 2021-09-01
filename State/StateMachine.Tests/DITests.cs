@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace StateMachine.Tests
 {
     [TestClass]
-    class DITests
+    public class DITests
     {
         [TestMethod]
         public void MyTestMethod()
@@ -13,7 +13,7 @@ namespace StateMachine.Tests
 
             services.AddStateMachines(registry =>
             {
-                registry.AddStateMachine(new StateMachineBuilder<State, Operation, string>()
+                registry.AddStateMachine(new StateMachineBuilder<State, Operation, ServiceContext>()
                                             .SetStart(State.Start)
                                             .WithTransition(State.Start, Operation.StartToFinish, State.Finish)
                                             .WithTransition(State.Start, Operation.StartToMiddle, State.Middle)
