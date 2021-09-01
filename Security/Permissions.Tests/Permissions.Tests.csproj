@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PermissionsModels\Permissions.csproj" />
+    <ProjectReference Include="..\Permissions\Permissions.csproj" />
   </ItemGroup>
 
 </Project>
